@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Killstreak</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="killstreak-container" style="display: none;">
+        <i class="fas fa-skull" id="killstreak-icon"></i>
+        <span id="killstreak-text"></span>
+    </div>
+
+    <script>
+        window.addEventListener('message', function(event) {
+            const data = event.data;
+            const container = document.getElementById('killstreak-container');
+            const text = document.getElementById('killstreak-text');
+
+            if (data.type === 'updateKillstreak') {
+                text.innerText = `Kill Streak: ${data.kills}`;
+                container.style.backgroundColor = `rgba(${data.r}, ${data.g}, ${data.b}, ${data.a})`;
+                container.style.boxShadow = `0 0 20px rgba(${data.r}, ${data.g}, ${data.b}, 0.5)`;
+                container.style.display = 'block';
+            } else if (data.type === 'hideKillstreak') {
+                container.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
